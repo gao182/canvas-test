@@ -69,12 +69,12 @@
 	background-color: white;
 }
 .music-page .music-bar time {
-	font-size: .7vh;
+	font-size: 1.6vh;
 	margin-left: 1vh;
 }
 .music-page .detail .singer {
 	margin-top: 2vh;
-	font-size: .7vh;
+	font-size: 1.6vh;
 	opacity: .7;
 }
 .music-page .detail .lcy {
