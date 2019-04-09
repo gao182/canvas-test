@@ -1,0 +1,208 @@
+/*播放页 主体 侧边栏*/
+.music-page > main aside {
+	height: 60vh;
+	width: 46vh;
+	margin-top: 10vh;
+	text-align: center;
+}
+.music-page aside .music-img {
+	height: 46vh;
+	background: url(http://p3.music.126.net/rEPbdIsPIz8TMSA9iYXYrQ==/109951163820707680.jpg) no-repeat center;
+	background-size: cover;
+}
+.music-page aside .control {
+	height: 14vh;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.music-page aside span {
+	font-size: 5vh;
+	opacity: .4;
+	cursor: pointer;
+}
+.music-page aside span:hover {
+	opacity: 1;
+}
+
+/*播放页 主体 歌曲信息*/
+.music-page main .detail {
+	margin: 10vh 0 0 10vh;
+	flex-grow: 1;
+}
+.music-page .detail .tag {
+	display: inline-block;
+	padding: .6vh 2vh;
+	font-size: 2vh;
+	background-color: #2e6eec;
+}
+.music-page .detail h1 {
+	margin: 3vh 0;
+	font-size: 5vh;
+}
+.music-page .detail .intro {
+	margin: 12vh 0;
+	display: flex;
+}
+.music-page .intro li {
+	flex-grow: 1;
+}
+.music-page .intro li span {
+	font-size: 3vh;
+}
+.music-page .detail .music-bar {
+	display: flex;
+	align-items: center;
+}
+.music-page .music-bar .bar {
+	position: relative;
+	flex-grow: 1;
+	height: 1vh;
+	background-color: rgba(255, 255, 255, .3);
+}
+.music-page .music-bar .bar-progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 30%;
+	background-color: white;
+}
+.music-page .music-bar time {
+	font-size: .7vh;
+	margin-left: 1vh;
+}
+.music-page .detail .singer {
+	margin-top: 2vh;
+	font-size: .7vh;
+	opacity: .7;
+}
+.music-page .detail .lcy {
+	margin-top: 6vh;
+	font-size: 2.6vh;
+}
+
+/*播放页 底部*/
+.music-page .box ul {
+	height: 24vh;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+.music-page .box ul > li {
+	height: 20vh;
+	width: 20vh;
+	margin: 2vh 1.4vh;
+	cursor: pointer;
+	text-align: center;
+}
+.music-page .box ul > li:hover {
+	box-shadow: 0 0 4px 1px white;
+}
+li.active {
+	box-shadow: 0 0 4px 1px white;
+}
+.music-page .box .img-small {
+	height: 16vh;
+	background-size: cover;
+	background-position: center center;
+}
+.music-page .box ul h3 {
+	margin-top: 1vh;
+	font-size: 2vh;
+}
+.need {
+	position: absolute;
+	font-size: 6.4vh;
+	opacity: .3;
+	display: none;
+	cursor: pointer;
+}
+.music-page>footer:hover span.need {
+	display: block;
+}
+.music-page footer .icon-left {
+	left: -7vh;
+	top: 7vh;
+}
+.music-page footer .icon-right {
+	right: -7vh;
+	top: 7vh;
+}
+span.need:hover {
+	opacity: 1;
+}
+
+/*共同样式*/
+.layout {
+	position: relative;
+}
+
+@media (max-width: 600px){
+	.layout {
+		width: 94%;
+		margin: 0 auto;
+	}
+	.music-page > main aside {
+		margin-top: 6vh;
+		width: 40vw;
+	}
+	.music-page main .detail {
+		margin-top: 6vh;
+		margin-left: 4vh;
+	}
+	.music-page .detail h1  {
+		font-size: 4vh;
+	}
+	.music-page .detail .intro {
+		margin: 9vh 0;
+	}
+	.music-page .intro li span {
+		font-size: 2.4vh;
+	}
+	.music-page .music-bar time,
+	.music-page .detail .singer {
+		font-size: 2vh;
+	}
+
+	.music-page .box ul > li {
+		width: 20vw;
+		height: 23vw;
+		margin: 7vw 1.2vw;
+	}
+	.music-page .box .img-small  {
+		height: 16vw;
+	}
+}
+
+@media (min-width: 600px){
+	.layout {
+		width: 560px;
+		margin: 0 auto;
+	}
+}
+@media (min-width: 700px){
+	.layout {
+		width: 600px;
+		margin: 0 auto;
+	}
+}
+@media (min-width: 900px){
+	.layout {
+		width: 800px;
+		margin: 0 auto;
+	}
+}
+@media (min-width: 1000px){
+	.layout {
+		width: 900px;
+		margin: 0 auto;
+	}
+}
+@media (min-width: 1200px){
+	.layout {
+		width: 1100px;
+		margin: 0 auto;
+	}
+}
