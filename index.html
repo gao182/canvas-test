@@ -1,118 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
-	<title>Hunger Music</title>
+	<title>MoodCD Music</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1132834_hmhwuvbzuo.css">
+	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1132834_q124ztvpmd.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="css/common.css">
-	<link rel="stylesheet" type="text/css" href="css/detail.css">
-	<link rel="stylesheet" type="text/css" href="css/pause.css">
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 </head>
 <body>
-	<section class="music-page">
-		<main class="layout">
-			<aside>
-				<div class="music-img"></div>
-				<div class="control">
-					<span class="btn-love iconfont icon-love"></span>
-					<span class="btn-play iconfont icon-play"></span>
-					<span class="btn-next iconfont icon-next"></span>
-				</div>
-			</aside>
-			<div class="detail">
-				<span class="tag">浪漫逃亡</span>
-				<h1>为了遇见你</h1>
-				<ul class="intro">
-					<li>
-						<span class="iconfont icon-head"></span>
-						<span>333</span>
+	<nav>
+		<div class="layout clearfix">
+			<ul class="classify">
+				<li>
+					<input type="text" name="search">
+					<span class="iconfont icon-search"></span>
+				</li>
+				<li><a href="">首页</a></li>
+				<li><a href="">分类歌单</a></li>
+				<li><a href="">我的音乐</a></li>
+				<li><a href="">登入</a></li>
+				<li><a href="">加入</a></li>
+			</ul>
+			<div class="menu">
+				<span class="iconfont icon-menu"></span>
+			</div>
+			<div id="logo">
+				<span class="iconfont icon-logo"></span>
+				<span>mood-cd</span>
+			</div>
+		</div>
+	</nav>
+	<main class="songCD">
+		<h1>歌单推荐</h1>
+		<ul class="songCD-name">
+			<li><a class="active" href="">经典推荐</a></li>
+			<li><a href="">网络歌曲</a></li>
+			<li><a href="">90后</a></li>
+			<li><a href="">ACG</a></li>
+			<li><a href="">器乐</a></li>
+			<li><a href="">孤独</a></li>
+		</ul>
+		<div class="layout">
+			<span class="next iconfont icon-left"></span>
+			<span class="next iconfont icon-right"></span>
+			<div class="box">
+				<ul class="clearfix">
+					<li class="active">
+						<div class="img" style="background-image: url(http://p3.music.126.net/rEPbdIsPIz8TMSA9iYXYrQ==/109951163820707680.jpg);"></div>
+						<p>浪漫逃亡</p>
 					</li>
 					<li>
-						<span class="iconfont icon-love"></span>
-						<span>122</span>
+						<div class="img" style="background-image: url(http://p2.music.126.net/du1hVvo91d1OmL_zP0CDjQ==/18899505370419472.jpg);"></div>
+						<p>春之韵</p>
 					</li>
 					<li>
-						<span class="iconfont icon-like"></span>
-						<span>20</span>
+						<div class="img" style="background-image: url(http://p2.music.126.net/1WT9AcdS88idJe0DmkMA4w==/109951163952993650.jpg);"></div>
+						<p>人间四月</p>
+					</li>
+					<li>
+						<div class="img" style="background-image: url(http://p2.music.126.net/ptMk0X0vjbBjlqgoK0-Iyw==/109951163771494816.jpg);"></div>
+						<p>阳光伊甸园</p>
+					</li>
+					<li>
+						<div class="img" style="background-image: url(http://p2.music.126.net/N_n5JMDjmnC2h7Cw1gjBYw==/109951163915630949.jpg);"></div>
+						<p>道别黄昏</p>
 					</li>
 				</ul>
-				<div class="music-bar">
-					<div class="bar">
-						<div class="bar-progress"></div>
-					</div>
-					<time>00:00</time>
-				</div>
-				<div class="singer">金莎</div>
-				<div class="lcy">这是歌词出现的地方</div>
 			</div>
-		</main>
-		<footer>
-			<div class="layout">
-				<span class="need iconfont icon-left"></span>
-				<span class="need iconfont icon-right"></span>
-				<div class="box">
-					<ul>
-						<li class="active">
-							<div class="img-small" style="background-image: url(http://p3.music.126.net/rEPbdIsPIz8TMSA9iYXYrQ==/109951163820707680.jpg);"></div>
-							<h3>浪漫逃亡</h3>
-						</li>
-						<li>
-							<div class="img-small" style="background-image: url(http://p2.music.126.net/du1hVvo91d1OmL_zP0CDjQ==/18899505370419472.jpg);"></div>
-							<h3>春之韵</h3>
-						</li>
-						<li>
-							<div class="img-small" style="background-image: url(http://p2.music.126.net/1WT9AcdS88idJe0DmkMA4w==/109951163952993650.jpg);"></div>
-							<h3>人间四月</h3>
-						</li>
-						<li>
-							<div class="img-small" style="background-image: url(http://p2.music.126.net/ptMk0X0vjbBjlqgoK0-Iyw==/109951163771494816.jpg);"></div>
-							<h3>阳光伊甸园</h3>
-						</li>
-						<li>
-							<div class="img-small" style="background-image: url(http://p2.music.126.net/N_n5JMDjmnC2h7Cw1gjBYw==/109951163915630949.jpg);"></div>
-							<h3>道别黄昏</h3>
-						</li>
-						<li>
-							<div class="img-small" style="background-image: url(http://p2.music.126.net/du1hVvo91d1OmL_zP0CDjQ==/18899505370419472.jpg);"></div>
-							<h3>春之韵</h3>
-						</li>
-						<li>
-							<div class="img-small" style="background-image: url(http://p2.music.126.net/ptMk0X0vjbBjlqgoK0-Iyw==/109951163771494816.jpg);"></div>
-							<h3>阳光伊甸园</h3>
-						</li>
-						<li>
-							<div class="img-small" style="background-image: url(http://p2.music.126.net/N_n5JMDjmnC2h7Cw1gjBYw==/109951163915630949.jpg);"></div>
-							<h3>道别黄昏</h3>
-						</li>
-						<li>
-							<div class="img-small" style="background-image: url(http://p2.music.126.net/du1hVvo91d1OmL_zP0CDjQ==/18899505370419472.jpg);"></div>
-							<h3>春之韵</h3>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</footer>
-	</section>
-	<section class="pause-page">
-		<main>
-			<div class="music-img"></div>
-		</main>
-		<footer>
-			<div>
-				<div class="bar">
-					<div class="bar-progress"></div>
-				</div>
-				<div class="music-intro">
-					<div class="intro">
-						<h1>为了遇见你</h1>
-						<div class="lcy">这是歌词出现的地方，这是歌词出现的地方</div>
-					</div>
-					<time>00:00</time>
-				</div>
-			</div>
-		</footer>
-	</section>
-	<div id="bg"></div>
+		</div>
+	</main>
+	<footer>
+		<div>this is a music radio @ MoodCD</div>
+	</footer>
+
+	<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

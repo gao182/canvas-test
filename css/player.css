@@ -1,0 +1,194 @@
+/*导航*/
+nav .layout input {
+	background-color: rgba(255, 255, 255, .24);
+}
+nav .layout li a:hover {
+	color: #51d081;
+}
+
+/*播放页 主体*/
+main {
+	height: calc(100% - 24vh);
+	display: flex;
+}
+/*播放页 主体 侧边栏*/
+section > main aside {
+	height: 60vh;
+	width: 46vh;
+	margin-top: 8vh;
+	text-align: center;
+}
+section aside .music-img {
+	height: 46vh;
+	background: url(http://p3.music.126.net/rEPbdIsPIz8TMSA9iYXYrQ==/109951163820707680.jpg) no-repeat center;
+	background-size: cover;
+}
+section aside .control {
+	height: 14vh;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+section aside span.iconfont {
+	font-size: 5vh;
+	opacity: .4;
+	cursor: pointer;
+}
+section aside span:hover {
+	opacity: 1;
+}
+
+/*播放页 主体 歌曲信息*/
+section main .detail {
+	margin-top: 8vh;
+	margin-left: 10vh;
+	flex-grow: 1;
+}
+section .detail .tag {
+	display: inline-block;
+	padding: .6vh 2vh;
+	font-size: 2vh;
+	background-color: #48c076;
+}
+section .detail h1 {
+	margin: 3vh 0;
+	font-size: 5vh;
+}
+section .detail .intro {
+	margin: 12vh 0;
+	display: flex;
+}
+section .intro li {
+	flex-grow: 1;
+}
+section .intro li span {
+	font-size: 3vh;
+}
+section .detail .music-bar {
+	display: flex;
+	align-items: center;
+}
+section .music-bar .bar {
+	position: relative;
+	flex-grow: 1;
+	height: 1vh;
+	background-color: rgba(255, 255, 255, .3);
+}
+section .music-bar .bar-progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 30%;
+	background-color: white;
+}
+section .music-bar time {
+	font-size: 2vh;
+	margin-left: 1vh;
+}
+section .detail .singer {
+	margin-top: 2vh;
+	font-size: 2vh;
+	opacity: .7;
+}
+section .detail .lcy {
+	margin-top: 4vh;
+	font-size: 2.6vh;
+}
+
+/*播放页 底部*/
+footer {
+	height: 15vh;
+	background-color: rgba(255, 255, 255, .1);
+	box-shadow: 0 0 1px 2px rgba(255, 255, 255, .1);
+}
+section .box {
+	position: relative;
+	height: 15vh;
+	overflow: hidden;
+}
+section .box ul {
+	position: absolute;
+	top: 3vh;
+	overflow: hidden;
+}
+section .box ul li {
+	width: 38vh;
+	padding: 1vh 1vh;
+	float: left;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	border-right: 1px dotted rgba(255, 255, 255, .4);
+	cursor: pointer;
+}
+section .box li .sort {
+	font-size: 5vh;
+}
+section .box li .intro {
+	width: 22vh;
+}
+section .box li .intro div,
+section .box li .intro span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+section .box li span {
+	padding-top: 1.4vh;
+	display: inline-block;
+	font-size: 2.4vh;
+}
+section .box li span.singer {
+	font-size: 2vh;
+	width: 14vh;
+}
+section .box li span.time {
+	font-size: 2vh;
+}
+section .box li .btn-icon {
+	display: block;
+	font-size: 2vh;
+	opacity: .4;
+}
+
+/*箭头*/
+.next {
+	position: absolute;
+	font-size: 6.4vh;
+	opacity: .3;
+	cursor: pointer;
+}
+section footer .icon-left {
+	left: -6vh;
+	top: 4vh;
+}
+section footer .icon-right {
+	right: -6vh;
+	top: 4vh;
+}
+span.next:hover {
+	opacity: 1;
+}
+
+/*底部背景*/
+#bg {
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	bottom: -10px;
+	left: -10px;
+	z-index: -1;
+	background: url(http://p3.music.126.net/rEPbdIsPIz8TMSA9iYXYrQ==/109951163820707680.jpg) no-repeat center;
+	background-size: cover;
+	filter: blur(8px);
+}
+#bg::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, .4);
+}
