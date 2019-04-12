@@ -62,6 +62,11 @@ var Pageload = {
 			})
 			name = data.tracks[0].name;
 			singer = _this.getSinger(data.tracks[0].ar);
+		    if(SongApp.loveSongObj[id]){
+		      $('.btn-love').addClass('on')
+		    }else{
+		      $('.btn-love').removeClass('on')
+		    }
 		}else {
 			var i = Object.keys(data)[0];
 			id = data[i].songId;
@@ -69,6 +74,7 @@ var Pageload = {
 			this.$tags.text('我的歌单');
 			name = data[i].songName;
 			singer = data[i].singer;
+			$('btn-love').addClass('on');
 		}
 
 		this.$img.css('background-image','url('+imgSrc +')');
@@ -84,11 +90,6 @@ var Pageload = {
 				singer : singer
 		};
 
-	    if(JSON.parse(localStorage['loveSongObj'])[id]){
-	      $('.btn-love').addClass('on')
-	    }else{
-	      $('.btn-love').removeClass('on')
-	    }
 		SongApp.getSong(id);
 		SongApp.loadLyc(id);
 	},
