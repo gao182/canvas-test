@@ -74,7 +74,7 @@ var Pageload = {
 			this.$tags.text('我的歌单');
 			name = data[i].songName;
 			singer = data[i].singer;
-			$('btn-love').addClass('on');
+			$('.btn-love').addClass('on');
 		}
 
 		this.$img.css('background-image','url('+imgSrc +')');
