@@ -36,12 +36,15 @@ nav .layout #logo span {
 	line-height: 9vh;
 	letter-spacing: 0;
 }
+#logo.active {
+	display: none;
+}
 nav .menu {
 	float: right;
 	display: none;
 }
 nav .icon-menu {
-	font-size: 5vh;
+	font-size: 5vw;
 	line-height: 9vh;
 	cursor: pointer;
 }
@@ -74,77 +77,54 @@ nav ul .icon-search {
 /*主体宽*/
 .layout {
 	position: relative;
+	margin: 0 auto;
 }
-@media (max-width: 800px){
+@media (max-width: 700px){
 	.layout {
-		width: 90%;
-		margin: 0 auto;
+		width: 84%;
 	}
-	nav ul.classify {
+	nav .classify {
 		display: none;
+		position: absolute;
+		top: 0;
+		right: 16vw;
+		left: 0;
+		z-index: 1;
+	}
+	nav .classify.active{
+		display: flex;
 	}
 	nav div.menu {
 		display: block;
-	} 
-	.music-page > main aside {
-		margin-top: 6vh;
-		width: 40vw;
-	}
-	.music-page main .detail {
-		margin-top: 6vh;
-		margin-left: 4vh;
-	}
-	.music-page .detail h1  {
-		font-size: 4vh;
-	}
-	.music-page .detail .intro {
-		margin: 9vh 0;
-	}
-	.music-page .intro li span {
-		font-size: 2.4vh;
-	}
-	.music-page .music-bar time,
-	.music-page .detail .singer {
-		font-size: 2vh;
-	}
-
-	.music-page .box ul > li {
-		width: 20vw;
-		height: 23vw;
-		margin: 7vw 1.2vw;
-	}
-	.music-page .box .img-small  {
-		height: 16vw;
 	}
 }
-
+@media (min-width: 700px){
+	.layout {
+		width: 600px;
+	}
+}
 @media (min-width: 800px){
 	.layout {
-		width: 94%;
-		margin: 0 auto;
+		width: 700px;
 	}
 }
 @media (min-width: 900px){
 	.layout {
 		width: 800px;
-		margin: 0 auto;
 	}
 }
 @media (min-width: 1000px){
 	.layout {
 		width: 900px;
-		margin: 0 auto;
 	}
 }
 @media (min-width: 1100px){
 	.layout {
 		width: 1000px;
-		margin: 0 auto;
 	}
 }
 @media (min-width: 1200px){
 	.layout {
 		width: 1100px;
-		margin: 0 auto;
 	}
 }

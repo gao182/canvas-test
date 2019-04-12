@@ -5,6 +5,10 @@ nav .layout li a:hover {
 	color: #202328;
 	background-color: #51d081;
 }
+nav .layout li a.active {
+	color: #202328;
+	background-color: #51d081;
+}
 nav .layout input {
 	background-color: #444;
 }
@@ -105,7 +109,7 @@ footer div {
 }
 
 /*共同样式*/
-@media (max-width: 600px){
+@media (max-width: 700px){
 	main > h1 {
 		padding-top: 5vh;
 		padding-bottom: 2vh;

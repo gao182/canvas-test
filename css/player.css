@@ -5,6 +5,9 @@ nav .layout input {
 nav .layout li a:hover {
 	color: #51d081;
 }
+nav .layout li a.active {
+	color: #51d081;
+}
 
 /*播放页 主体*/
 main {
@@ -20,7 +23,7 @@ section > main aside {
 }
 section aside .music-img {
 	height: 46vh;
-	background: url(http://p3.music.126.net/rEPbdIsPIz8TMSA9iYXYrQ==/109951163820707680.jpg) no-repeat center;
+	background: url(//p3.music.126.net/rEPbdIsPIz8TMSA9iYXYrQ==/109951163820707680.jpg) no-repeat center;
 	background-size: cover;
 }
 section aside .control {
@@ -35,6 +38,10 @@ section aside span.iconfont {
 	cursor: pointer;
 }
 section aside span:hover {
+	opacity: 1;
+}
+section aside span.on {
+	color: #fc1f05;;
 	opacity: 1;
 }
 
@@ -73,13 +80,14 @@ section .music-bar .bar {
 	flex-grow: 1;
 	height: 1vh;
 	background-color: rgba(255, 255, 255, .3);
+	cursor: pointer;
 }
-section .music-bar .bar-progress {
+.bar-progress {
 	position: absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
-	width: 30%;
+	width: 0%;
 	background-color: white;
 }
 section .music-bar time {
@@ -91,7 +99,7 @@ section .detail .singer {
 	font-size: 2vh;
 	opacity: .7;
 }
-section .detail .lcy {
+section .detail .lyc {
 	margin-top: 4vh;
 	font-size: 2.6vh;
 }
@@ -191,4 +199,30 @@ span.next:hover {
 	bottom: 0;
 	left: 0;
 	background-color: rgba(0, 0, 0, .4);
+}
+
+
+/*手机*/
+@media (max-width: 700px) {
+	main.music-page aside {
+		margin-top: 6vh;
+		width: 40vw;
+	}
+	main.music-page .detail {
+		margin-top: 6vh;
+		margin-left: 4vh;
+	}
+	main.music-page .detail h1  {
+		font-size: 4vh;
+	}
+	main.music-page .detail .intro {
+		margin: 9vh 0;
+	}
+	main.music-page .intro li span {
+		font-size: 2.4vh;
+	}
+	main.music-page .music-bar time,
+	main.music-page .detail .singer {
+		font-size: 2vh;
+	}
 }

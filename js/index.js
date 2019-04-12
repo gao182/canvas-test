@@ -15,6 +15,17 @@ var SongList = {
 	},
 	bind : function(){
 		var _this = this;
+		$('nav .menu').on('click',function(){
+			if ($(this).hasClass('active')) {
+				$('nav ul.classify').removeClass('active');
+				$('#logo').removeClass('active');
+				$(this).removeClass('active');
+			}else {
+				$('nav ul.classify').addClass('active');
+				$('#logo').addClass('active');
+				$(this).addClass('active');
+			}
+		})
 		this.$left.on('click', function(){
 			if (_this.isAnimate || _this.isToStart) { return }
 			var liWidth = _this.$ul.find('li').outerWidth(true);
@@ -51,7 +62,6 @@ var SongList = {
 		})
 		this.$ul.on('click','li',function(){
 			document.cookie = $(this).attr('data-id');
-			console.log(document.cookie);
 		})
 		this.$name.find('li').on('click', function(e){
 			e.preventDefault();
