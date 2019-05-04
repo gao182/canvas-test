@@ -1,0 +1,107 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background-color: #fff8ef;
+}
+ul { list-style: none; }
+
+/*画板*/
+#canvas {
+	display: block;
+	background-color: #f8dfc6;
+}
+
+/*侧边栏*/
+aside {
+	position: absolute;
+	top: 20px;
+	color: #986b4b;
+}
+
+/*左侧样式*/
+.style { left: 20px; }
+
+.brush-color {
+	display: flex;
+	width: 46px;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.brush-color li {
+	margin-bottom: 16px;
+	width: 16px;
+	height: 16px;
+	background-color: black;
+	border: 1px solid #aaa;
+	border-radius: 50%;
+	transition: all .3s;
+	cursor: pointer;
+}
+.brush-color #grey {background-color: grey;}
+.brush-color #white {background-color: white;}
+.brush-color #red {background-color: red;}
+.brush-color #orange {background-color: orange;}
+.brush-color #yellow {background-color: yellow;}
+.brush-color #lime {background-color: lime;}
+.brush-color #aqua {background-color: aqua;}
+.brush-color #blue {background-color: blue;}
+.brush-color #purple {background-color: purple;}
+.brush-color #dodgerblue {background-color: dodgerblue;}
+.brush-color #brown {background-color: brown;}
+.brush-color li.active {
+	transform: scale(1.4);
+	box-shadow: 0 0 3px rgba(0, 0, 0, .4);
+}
+
+.brush-size {
+	margin-top: 50px;
+}
+.brush-size li {
+	margin-bottom: 14px;
+	width: 46px;
+	height: 3px;
+	background-color: black;
+	transition: all .3s;
+	cursor: pointer;
+}
+.brush-size #size4 { height: 8px; }
+.brush-size #size8 { height: 14px; }
+.brush-size #size16 { height: 20px; }
+.brush-size li.active {
+	background-color: #d97907;
+	box-shadow: 0 0 3px rgba(0, 0, 0, .6);
+}
+
+/*右侧功能*/
+.control { 
+	right: 30px;
+	font-size: 32px;
+}
+
+/*svg*/
+.icon {
+	display: block;
+	margin: 0 4px;
+	margin-bottom: 20px;
+	width: 1em; height: 1em;
+	vertical-align: -0.15em;
+	fill: currentColor;
+	overflow: hidden;
+	transition: all 0.3s;
+	cursor: pointer;
+}
+/*选中样式*/
+.icon.active {
+	color: #d97907;
+	transform: scale(1.6);
+}
+#save {
+	margin-bottom: 80px;
+}
+
+@media (max-width: 600px){
+	.style { left: 10px; }
+	.control { right: 10px; }
+}

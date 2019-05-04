@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+	<title>消除泡泡</title>
+	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1171596_lwly8guxhse.css">
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			font: 1rem/1.4 Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+			font-weight: bolder;
+			word-spacing: .04em;
+			color: #47a049;
+		}
+		canvas {
+			display: block;
+			background: url(image/bg-1.jpg) no-repeat bottom;
+			background-size: cover;
+		}
+		#view {
+			margin: 0 auto;
+			width: 500px;
+			position: relative;
+			text-align: center;
+		}
+		#cover {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 1;
+			background-color: rgba(0, 0, 0, .7);
+		}
+		#cover.active {
+			display: none;
+		}
+		#cover .cover-box {
+			width: 7.6rem;
+			height: 8rem;
+			background: url(image/box.png) no-repeat;
+			background-size: cover;
+			display: flex;
+			flex-flow: column;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.cover-box .star {
+			width: 4.2rem;
+			height: 1.42rem;
+			margin-top: 2rem;
+			background: url(image/star.png) no-repeat;
+			background-size: cover;
+		}
+		.cover-box .time {
+			width: 2.86rem;
+			height: .9rem;
+			background: url(image/btn1.png) no-repeat;
+			background-size: cover;
+			font-size: .54rem;
+			font-style: oblique;
+			line-height: .9rem;
+			color: #cc5b0e;
+		}
+		.cover-box .info {
+			font-size: .6rem;
+			margin: .2rem;
+		}
+		.cover-box .score_num {
+			color: #fb861c;
+		}
+		.cover-box #button {
+			margin-bottom: .4rem;
+			display: flex;
+			flex-flow: column;
+			align-items: center;
+			font-size: .3rem;
+		}
+		#button .icon {
+			width: 1.1rem;
+			height: 1.1rem;
+			line-height: 1.1rem;
+			background: url(image/btn2.png) no-repeat 0 0;
+			background-size: cover;
+			color: white;
+			cursor: pointer;
+		}
+		.icon .iconfont {
+			font-size: .64rem;
+			font-weight: lighter;
+			text-shadow: 2px 2px 4px #488b44;
+			-webkit-text-stroke: .5px #488b44;
+		}
+		.canvase {
+			display: flex;
+			flex-flow: column;
+			align-items: center;
+		}
+		.status-bar {
+			display: flex;
+			align-items: center;
+			width: 10rem;
+			height: 1rem;
+			padding-left: 1.2rem;
+			background: url(image/bar.jpg) no-repeat;
+			background-size: cover;
+		}
+		.status-bar div {
+			font-size: .32rem;
+			color: white;
+			text-shadow: 2px 1px 1px #fb861c;
+		}
+		.status-bar .time {
+			position: relative;
+			margin: 0 .4rem;
+			width: 2.4rem;
+			height: .6rem;
+			background-color: #336f8b;
+			border-radius: .3rem;
+			box-shadow: 2px 1px 2px 1px rgba(255, 255, 255, .4),-2px -1px 2px 1px rgba(255, 255, 255, .4), 1px 1px 2px 2px rgba(0, 0, 0, .3) inset;
+			font-size: .4rem;
+			line-height: .6rem;
+			color: white;
+			text-shadow: 2px 1px 1px rgba(0, 0, 0, .2);
+		}
+		.status-bar .score_num {
+			font-size: .36rem;
+			color: #dc4e00;
+			text-shadow: 2px 1px 1px rgba(255, 255, 255, .4);
+		}
+		@media (max-width: 600px) {
+			#view {
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+<body bgcolor="black">
+	<div id="view">
+		<div class="canvas">
+			<div class="status-bar">
+				<div>游戏耗时：</div>
+				<div class="time">00:00</div>
+				<div>累计分数：<span class="score_num">00000</span></div>
+			</div>
+			<canvas id="cas">您的浏览器不支持canvas，请升级浏览器</canvas>
+		</div>
+		<img src="image/balls0.png" id="bs0" style="display: none;">
+		<img src="image/balls1.png" id="bs1" style="display: none;">
+		<img src="image/balls2.png" id="bs2" style="display: none;">
+		<img src="image/balls3.png" id="bs3" style="display: none;">
+		<img src="image/balls4.png" id="bs4" style="display: none;">
+		<img src="image/balls5.png" id="bs5" style="display: none;">
+		<img src="image/gun.png" id="muzzle" style="display: none;">
+		<div id="cover" class="active">
+			<div class="cover-box">
+				<div class="star"></div>
+				<div class="time">00:00</div>
+				<div class="info">累计得<span class="score_num">0</span>分</div>
+				<div id="button">
+					<span class="icon"><i class="iconfont icon-play"></i></span>
+					<span class="depict">再玩一次</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var maxWidth = document.documentElement.clientWidth < 500 ? document.documentElement.clientWidth : 500
+		document.write('<style>html { font-size: '+ maxWidth/10 +'px; }</style>')
+		window.requestAnimFrame = function () {
+			return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||function(a){window.setTimeout(a,1E3/60)}
+		}()
+
+		$ = {}
+		$.init = function(){
+			$.view = document.getElementById('view')
+			$.cover = document.getElementById('cover')
+			$.cas = document.getElementById('cas')
+			$.cas.width = maxWidth
+			$.cas.height = document.documentElement.clientHeight - maxWidth/10
+			$.ctx = $.cas.getContext('2d')  //得到可绘制区域
+			$.radius = 16
+			$.rownum = Math.floor($.cas.width / ($.radius*2))
+			$.toprow = 0
+			$.speed = 1
+			$.score = 0
+			$.direction = 0 //存被撞的球
+			$.meltpoint = 0 //存被消除的中心球
+			$.moving = false
+			$.Stop = true
+			$.melting = false
+			$.bullets = []
+			$.balls = []
+			$.scoreballs = []
+			$.begindate = Date.now()
+
+			$.bullets.push(new $.Ball( $.cas.width/2, $.cas.height - (maxWidth*0.44/2)))
+			$.muzzle = new $.Muzzle($.cas.width/2, $.cas.height - (maxWidth*0.44/2), 0)
+			$.dotline = new $.Dotline($.cas.width/2, $.cas.height - 166, $.cas.width/2, $.cas.height - 166)
+			for (var i = 0; i < 5; i++) {
+				for (var j = 0; j < $.rownum ; j++) {
+					$.balls.push(new $.Ball( (j*$.radius*2) + (i%2*$.radius) + $.radius, (i*2*$.radius) - (i*5) +$.radius ))
+				}
+			}
+
+			$.Stop = false
+			$.cas.addEventListener( 'mousedown', $.down )
+			$.cas.addEventListener( 'touchstart', $.down )
+			window.addEventListener("touchmove" , $.move )
+			$.cas.addEventListener( 'touchend', $.up )
+			document.getElementById("button").addEventListener('click', function(){
+				$.cover.classList.add('active')
+				$.init()
+			})
+
+			$.redraw()
+		}
+
+		$.down = function(evt){
+			var e 
+			if (document.body.ontouchstart !== undefined) {
+				e = evt.touches[0]
+			}else {
+				e = evt || window.event
+			}
+			
+			$.dotline.display = true
+			$.dotline.x0 = $.bullets[0].x
+			$.dotline.y0 = $.bullets[0].y
+			$.dotline.x1 = e.clientX - $.view.offsetLeft
+			$.dotline.y1 = e.clientY - $.view.offsetTop - maxWidth/10
+			$.muzzle.angle = -Math.atan(($.dotline.x1 - $.bullets[0].x)/($.dotline.y1 - $.bullets[0].y))
+
+			window.addEventListener('mousemove', $.move)
+			window.addEventListener( 'mouseup', $.up )
+		}
+		$.move = function(evt) {
+			var e 
+			if (document.body.ontouchstart !== undefined) {
+				event.preventDefault()
+				e = evt.touches[0]
+			}else {
+				e = evt || window.event
+			}
+			$.dotline.x1 = e.clientX - $.view.offsetLeft
+			$.dotline.y1 = e.clientY - $.view.offsetTop - maxWidth/10
+			$.muzzle.angle = -Math.atan(($.dotline.x1 - $.bullets[0].x)/($.dotline.y1 - $.bullets[0].y))
+
+		}
+		$.up = function(evt){
+			var e
+			if (document.body.ontouchstart !== undefined) {
+				e = evt.changedTouches[0]
+			}else {
+				e = evt || window.event
+			}
+			$.dotline.display = false
+			$.moving = true
+
+			//主球和到达点形成的三角形a,b边和角度
+			var a = e.clientX - $.view.offsetLeft - $.bullets[0].x
+					b = e.clientY - $.view.offsetTop - maxWidth/10 - $.bullets[0].y
+					angle = Math.atan(a/b)
+
+			$.muzzle.angle = -angle
+			//c边上的角度和运动速率
+			$.bullets[0].sx = a > 0 ? 10 * Math.abs(Math.sin(angle)) : -10 * Math.abs(Math.sin(angle))
+			$.bullets[0].sy = b > 0 ? 10 * Math.abs(Math.cos(angle)) : -10 * Math.abs(Math.cos(angle))
+
+			window.removeEventListener('mousemove', $.move)
+			window.removeEventListener('mouseup', $.up)
+		}
+
+		$.redraw = function() {
+			$.ctx.clearRect(0, 0, $.cas.width, $.cas.height)
+			var t = Date.now()
+			$.scroe = $.scoreballs.length * 50
+
+			if ($.dotline.display) { $.dotline.render()}
+			$.muzzle.render()
+			for (var i = 0; i < $.balls.length; i++) {
+				$.balls[i].render()
+			}
+			if ($.bullets.length < 1) {
+				$.bullets.push(new $.Ball( $.cas.width/2, $.cas.height - (maxWidth*0.44/2) ))
+			}
+			$.bullets[0].run()
+
+			if ($.moving) { $.bumpballs() }
+			if ($.melting) {$.meltballs();$.addbulls()}
+			if ($.scoreballs.length > 2 &&  t - $.clearBull < 500 ) {
+
+				for (var i = 0; i < $.scoreballs.length; i++) {
+					$.scoreballs[i].renderscore($.scoreballs[i].x,$.scoreballs[i].y)
+				}
+			}else {
+				$.scoreballs = []
+			}
+			
+			document.getElementsByClassName("score_num")[0].innerText = $.score*50
+			var time = Math.floor((t - $.begindate)/1000)
+			if (time > 60) {
+				document.getElementsByClassName("time")[0].innerText = Math.floor(time/60) + '′' + (time - Math.floor(time/60) *60) + '″'
+			}else {
+				document.getElementsByClassName("time")[0].innerText = time + '″'
+			}
+			$.gameover()
+			if (!$.Stop) {
+				requestAnimFrame($.redraw)
+			}
+		}
+		$.addbulls = function() {
+			if ($.speed%5 === 0) {
+				$.balls._foreach(function(){
+					this.y += $.radius*2 + ($.toprow*5) - 5 - $.toprow*5
+				})
+				$.toprow +=1
+				for (var j = 0; j < $.rownum ; j++) {
+					$.balls.unshift(new $.Ball( (j*$.radius*2) + $.radius + ($.toprow%2*$.radius), $.radius))
+				}
+			}
+			$.speed +=1
+		}
+		$.bumpballs = function() {
+			for (var i = 0; i < $.balls.length; i++) {
+				var b1 = $.balls[i], bt = $.bullets[0]
+				var rc = Math.sqrt(Math.pow(b1.x - bt.x , 2) + Math.pow(b1.y - bt.y , 2))
+				if (Math.floor(rc) <= $.radius*2) {
+					$.Stop = true
+					$.balls.push(bt)
+					$.direction = b1
+					$.moving = false
+					$.bullets.pop()
+					$.Stop = false
+
+					break
+				}
+			}
+
+			//主球停止滚动后，摆放正确位置，并解除清除方法的锁定状态
+			if (!$.moving) {
+				var lastball = $.balls[ $.balls.length - 1 ]
+				var y = Math.round((lastball.y-$.radius)/(2*$.radius - 5))
+
+				//判断子弹球摆放的地方并摆放
+				if (lastball.x - $.direction.x > 20 ) {
+					if (lastball.y - $.direction.y <= 20 && lastball.y - $.direction.y >= -20) {
+						lastball.y = $.direction.y
+						lastball.x = $.direction.x + 2*$.radius 
+					}
+					else if ( lastball.y - $.direction.y < -20) {
+						lastball.y =  (y*2*$.radius) - (y*5) +$.radius
+						lastball.x = $.direction.x + $.radius
+					}
+					else if (lastball.y - $.direction.y > 20) {
+						lastball.y =  (y*2*$.radius) - (y*5) + $.radius
+						lastball.x = $.direction.x + $.radius
+					}
+				}
+				else if (lastball.x - $.direction.x < -20) {
+					if(lastball.y - $.direction.y <= 20 && lastball.y - $.direction.y >= -20) {
+						lastball.y = $.direction.y
+						lastball.x = $.direction.x - 2*$.radius 
+					}
+					else if (lastball.y - $.direction.y > 20) {
+						lastball.y = (y*2*$.radius) - (y*5) + $.radius
+						lastball.x = $.direction.x - $.radius
+					}
+					else if (lastball.y - $.direction.y < -20) {
+						lastball.y = (y*2*$.radius) - (y*5) +$.radius
+						lastball.x = $.direction.x - $.radius
+					}
+				}
+				else if (lastball.x - $.direction.x <= 20 && lastball.x - $.direction.x >= -20) {
+					if (lastball.x - $.direction.x > 0 && lastball.y - $.direction.y > 20 ) {
+						lastball.y = (y*2*$.radius) - (y*5) + $.radius
+						lastball.x = $.direction.x + $.radius
+					}
+					else if (lastball.x - $.direction.x > 0 && lastball.y - $.direction.y <= 20 ) {
+						lastball.y = (y*2*$.radius) - (y*5) +$.radius
+						lastball.x = $.direction.x + $.radius
+					}
+					else if (lastball.x - $.direction.x <= 0 && lastball.y - $.direction.y >= -20 ) {
+						lastball.y = (y*2*$.radius) - (y*5) +$.radius
+						lastball.x = $.direction.x - $.radius
+					}
+					else if (lastball.x - $.direction.x <= 0 && lastball.y - $.direction.y <= 20 ) {
+						lastball.y = (y*2*$.radius) - (y*5) +$.radius
+						lastball.x = $.direction.x - $.radius
+					}
+				}
+
+				$.melting = true
+			}
+		}
+		$.meltballs = function() {
+			var arrColor = [], lastball = $.balls[ $.balls.length - 1 ]
+			$.meltpoint = lastball
+
+			//判断相同颜色的球是否与子弹球相邻个数超过2个
+			$.balls._foreach(function(){
+				if (this.color === lastball.color) {
+					arrColor.push(this)
+				}
+			})
+			for (var i = arrColor.length - 2; i >= 0; i--) {
+				for (var j = arrColor.length - 2; j >= 0; j--) {
+					var b1 = arrColor[i], b2 = arrColor[j]
+					if (b1 !== b2) {
+						var rc1 = Math.sqrt(Math.pow(b1.x - $.meltpoint.x , 2) + Math.pow(b1.y - $.meltpoint.y , 2))
+						var rc3 = Math.sqrt(Math.pow(b1.x - b2.x , 2) + Math.pow(b1.y - b2.y , 2))
+						if (Math.floor(rc1) <= $.radius*2 && Math.floor(rc3) <= $.radius*2) {
+							$.balls[$.balls._index(b1)].color = "black"
+							$.balls[$.balls._index(b2)].color = "black"
+							lastball.color = "black"
+							$.score +=1
+							$.meltpoint = b1
+						}
+					}
+				}
+			}
+
+			//得到与子弹球相邻超过2个的同色球并清理
+			$.balls._foreach(function(){
+				if (this.color === "black"){
+					$.scoreballs.push(this)
+				}
+			})
+
+			var num = 0
+			while(num < 3) {
+				$.balls._foreach(function(){
+					if (this.color === "black"){
+						$.balls.splice($.balls._index(this),1)
+					}
+				})
+				num ++
+			}
+
+
+			$.melting = false
+			$.clearBull = Date.now()
+		}
+		$.gameover = function() {
+			var heightObj = [], maxHeight
+
+			$.balls._foreach(function(){
+				heightObj.push(this.y)
+			})
+			maxHeight = heightObj.sort(function(a,b){
+				return b - a
+			})[0]
+
+			if ($.cas.height - maxHeight < (maxWidth*0.4+$.radius)) {
+				$.cover.classList.remove('active')
+				document.getElementsByClassName("score_num")[1].innerText = document.getElementsByClassName("score_num")[0].innerText
+				document.getElementsByClassName("time")[1].innerText = document.getElementsByClassName("time")[0].innerText
+				$.Stop = true
+			}
+		}
+
+		$.Ball = function(x, y) {
+			this.sx = 0
+			this.sy = 0
+			this.x = x
+			this.y = y
+			this.color = Math.floor(Math.random()*5) || 5
+		}
+		$.Ball.prototype.render = function() {
+			var b
+			switch(this.color) {
+				case 0 :
+					b = document.getElementById("bs0")
+					break;
+				case 1 :
+					b = document.getElementById("bs1")
+					break;
+				case 2 :
+					b = document.getElementById("bs2")
+					break;
+				case 3 :
+					b = document.getElementById("bs3")
+					break;
+				case 4 :
+					b = document.getElementById("bs4")
+					break;
+				default:
+					b = document.getElementById("bs5")
+			}
+			if(b.complete) {
+				$.ctx.drawImage(b , this.x-$.radius , this.y-$.radius , 2*$.radius , 2*$.radius);
+			}
+			else {
+				b.onload = function(){
+					$.ctx.drawImage(b , this.x-$.radius , this.y-$.radius , 2*$.radius , 2*$.radius);
+				}
+			}
+		}
+		$.Ball.prototype.renderscore = function(x,y) {
+			$.ctx.font = "14px sans-serif"
+			$.ctx.textAlign = "center"
+			$.ctx.fillStyle = "red"
+			$.ctx.fillText('+50', x, y)
+		}
+		$.Ball.prototype.run = function() {
+			this.x += this.sx
+			this.y += this.sy
+			this.render()
+
+			if (this.x < $.radius || this.x > $.cas.width - $.radius) {
+				this.sx = - this.sx
+			}
+			else if(this.y < $.radius || this.y > $.cas.height - $.radius){
+				$.bullets.pop()
+				$.moving = false
+			}
+		}
+
+		$.Dotline = function(x0, y0, x1, y1){
+			this.x0 = x0
+			this.y0 = y0
+			this.x1 = x1
+			this.y1 = y1
+			this.display = false
+		}
+		$.Dotline.prototype.render = function () {
+			$.ctx.save()
+			$.ctx.beginPath()
+			$.ctx.setLineDash([3, 10])
+			$.ctx.moveTo(this.x0, this.y0)
+			$.ctx.lineTo(this.x1, this.y1)
+			$.ctx.lineWidth = 3;
+			$.ctx.strokeStyle = "white"
+			$.ctx.lineCap = "round";
+			$.ctx.stroke()
+			$.ctx.closePath()
+			$.ctx.restore()
+		}
+
+		$.Muzzle = function(x, y, angle) {
+			this.x = x
+			this.y = y
+			this.angle = angle
+		}
+		$.Muzzle.prototype.render = function() {
+			var b = document.getElementById("muzzle"),
+					xscale =  maxWidth/720
+
+			$.ctx.save()
+			$.ctx.translate(this.x, this.y)
+			$.ctx.rotate(this.angle)  
+			if(b.complete) {
+				$.ctx.drawImage(b , -xscale*128/2 ,  -xscale*128 * 0.74*1.2, xscale*128, xscale*128 * 0.74)
+			}
+			else {
+				b.onload = function(){
+					$.ctx.drawImage(b , -xscale*128/2 , -xscale*128 * 0.74*1.2, xscale*128, xscale*128 * 0.74)
+				}
+			}
+			$.ctx.restore()
+		}
+
+		Array.prototype._foreach = function(callback){
+			for(var i=0;i<this.length;i++){
+				callback.apply(this[i] , [i]);
+			}
+		}
+
+
+		Array.prototype._index = function(obj) { 
+		  var i = this.length; 
+		  while (i--) { 
+		    if (this[i] === obj) { 
+		      return i; 
+		    } 
+		  } 
+		}
+
+		$.init()
+
+	</script>
+</body>
+</html>

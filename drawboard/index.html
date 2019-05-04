@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+	<title>canvas画板</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script type="text/javascript" src="//at.alicdn.com/t/font_1165280_86wtfg9vkgs.js"></script>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<aside class="style">
+		<ul class="brush-color">
+			<li id="black" class="active"></li>
+			<li id="grey"></li>
+			<li id="white"></li>
+			<li id="red"></li>
+			<li id="orange"></li>
+			<li id="yellow"></li>
+			<li id="lime"></li>
+			<li id="aqua"></li>
+			<li id="blue"></li>
+			<li id="purple"></li>
+			<li id="dodgerblue"></li>
+			<li id="brown"></li>
+		</ul>
+		<ul class="brush-size">
+			<li id="size2"  class="active">
+			</li>
+			<li id="size4">
+			</li>
+			<li id="size8">
+			</li>
+			<li id="size16">
+			</li>
+		</ul>
+	</aside>
+	<aside class="control">
+		<svg id="save" class="icon">
+			<use xlink:href="#icon-save"></use>
+		</svg>
+		<svg id="brush" class="icon active">
+			<use xlink:href="#icon-brush"></use>
+		</svg>
+		<svg  id="eraser"class="icon">
+			<use xlink:href="#icon-eraser"></use>
+		</svg>
+		<svg id="clear" class="icon">
+			<use xlink:href="#icon-delete"></use>
+		</svg>
+	</aside>
+
+	<script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>
