@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
@@ -192,7 +192,6 @@
 			$.toprow = 0
 			$.speed = 1
 			$.score = 0
-			$.direction = 0 //存被撞的球
 			$.meltpoint = 0 //存被消除的中心球
 			$.moving = false
 			$.Stop = true
@@ -297,14 +296,12 @@
 			if ($.moving) { $.bumpballs() }
 			if ($.melting) {$.meltballs();$.addbulls()}
 			if ($.scoreballs.length > 2 &&  t - $.clearBull < 500 ) {
-
 				for (var i = 0; i < $.scoreballs.length; i++) {
 					$.scoreballs[i].renderscore($.scoreballs[i].x,$.scoreballs[i].y)
 				}
 			}else {
 				$.scoreballs = []
 			}
-			
 			document.getElementsByClassName("score_num")[0].innerText = $.score*50
 			var time = Math.floor((t - $.begindate)/1000)
 			if (time > 60) {
@@ -330,13 +327,14 @@
 			$.speed +=1
 		}
 		$.bumpballs = function() {
+			var bump //存被撞的球
 			for (var i = 0; i < $.balls.length; i++) {
 				var b1 = $.balls[i], bt = $.bullets[0]
 				var rc = Math.sqrt(Math.pow(b1.x - bt.x , 2) + Math.pow(b1.y - bt.y , 2))
 				if (Math.floor(rc) <= $.radius*2) {
 					$.Stop = true
 					$.balls.push(bt)
-					$.direction = b1
+					bump = b1
 					$.moving = false
 					$.bullets.pop()
 					$.Stop = false
@@ -351,50 +349,50 @@
 				var y = Math.round((lastball.y-$.radius)/(2*$.radius - 5))
 
 				//判断子弹球摆放的地方并摆放
-				if (lastball.x - $.direction.x > 20 ) {
-					if (lastball.y - $.direction.y <= 20 && lastball.y - $.direction.y >= -20) {
-						lastball.y = $.direction.y
-						lastball.x = $.direction.x + 2*$.radius 
+				if (lastball.x - bump.x > 20 ) {
+					if (lastball.y - bump.y <= 20 && lastball.y - bump.y >= -20) {
+						lastball.y = bump.y
+						lastball.x = bump.x + 2*$.radius 
 					}
-					else if ( lastball.y - $.direction.y < -20) {
+					else if ( lastball.y - bump.y < -20) {
 						lastball.y =  (y*2*$.radius) - (y*5) +$.radius
-						lastball.x = $.direction.x + $.radius
+						lastball.x = bump.x + $.radius
 					}
-					else if (lastball.y - $.direction.y > 20) {
+					else if (lastball.y - bump.y > 20) {
 						lastball.y =  (y*2*$.radius) - (y*5) + $.radius
-						lastball.x = $.direction.x + $.radius
+						lastball.x = bump.x + $.radius
 					}
 				}
-				else if (lastball.x - $.direction.x < -20) {
-					if(lastball.y - $.direction.y <= 20 && lastball.y - $.direction.y >= -20) {
-						lastball.y = $.direction.y
-						lastball.x = $.direction.x - 2*$.radius 
+				else if (lastball.x - bump.x < -20) {
+					if(lastball.y - bump.y <= 20 && lastball.y - bump.y >= -20) {
+						lastball.y = bump.y
+						lastball.x = bump.x - 2*$.radius 
 					}
-					else if (lastball.y - $.direction.y > 20) {
+					else if (lastball.y - bump.y > 20) {
 						lastball.y = (y*2*$.radius) - (y*5) + $.radius
-						lastball.x = $.direction.x - $.radius
+						lastball.x = bump.x - $.radius
 					}
-					else if (lastball.y - $.direction.y < -20) {
+					else if (lastball.y - bump.y < -20) {
 						lastball.y = (y*2*$.radius) - (y*5) +$.radius
-						lastball.x = $.direction.x - $.radius
+						lastball.x = bump.x - $.radius
 					}
 				}
-				else if (lastball.x - $.direction.x <= 20 && lastball.x - $.direction.x >= -20) {
-					if (lastball.x - $.direction.x > 0 && lastball.y - $.direction.y > 20 ) {
+				else if (lastball.x - bump.x <= 20 && lastball.x - bump.x >= -20) {
+					if (lastball.x - bump.x > 0 && lastball.y - bump.y > 20 ) {
 						lastball.y = (y*2*$.radius) - (y*5) + $.radius
-						lastball.x = $.direction.x + $.radius
+						lastball.x = bump.x + $.radius
 					}
-					else if (lastball.x - $.direction.x > 0 && lastball.y - $.direction.y <= 20 ) {
+					else if (lastball.x - bump.x > 0 && lastball.y - bump.y <= 20 ) {
 						lastball.y = (y*2*$.radius) - (y*5) +$.radius
-						lastball.x = $.direction.x + $.radius
+						lastball.x = bump.x + $.radius
 					}
-					else if (lastball.x - $.direction.x <= 0 && lastball.y - $.direction.y >= -20 ) {
+					else if (lastball.x - bump.x <= 0 && lastball.y - bump.y >= -20 ) {
 						lastball.y = (y*2*$.radius) - (y*5) +$.radius
-						lastball.x = $.direction.x - $.radius
+						lastball.x = bump.x - $.radius
 					}
-					else if (lastball.x - $.direction.x <= 0 && lastball.y - $.direction.y <= 20 ) {
+					else if (lastball.x - bump.x <= 0 && lastball.y - bump.y <= 20 ) {
 						lastball.y = (y*2*$.radius) - (y*5) +$.radius
-						lastball.x = $.direction.x - $.radius
+						lastball.x = bump.x - $.radius
 					}
 				}
 
@@ -416,8 +414,8 @@
 					var b1 = arrColor[i], b2 = arrColor[j]
 					if (b1 !== b2) {
 						var rc1 = Math.sqrt(Math.pow(b1.x - $.meltpoint.x , 2) + Math.pow(b1.y - $.meltpoint.y , 2))
-						var rc3 = Math.sqrt(Math.pow(b1.x - b2.x , 2) + Math.pow(b1.y - b2.y , 2))
-						if (Math.floor(rc1) <= $.radius*2 && Math.floor(rc3) <= $.radius*2) {
+						var rc2 = Math.sqrt(Math.pow(b1.x - b2.x , 2) + Math.pow(b1.y - b2.y , 2))
+						if (Math.floor(rc1) <= $.radius*2 && Math.floor(rc2) <= $.radius*2) {
 							$.balls[$.balls._index(b1)].color = "black"
 							$.balls[$.balls._index(b2)].color = "black"
 							lastball.color = "black"
@@ -434,17 +432,12 @@
 					$.scoreballs.push(this)
 				}
 			})
-
-			var num = 0
-			while(num < 3) {
-				$.balls._foreach(function(){
-					if (this.color === "black"){
-						$.balls.splice($.balls._index(this),1)
-					}
+			if($.scoreballs.length > 2) {
+				$.score +=1
+				$.scoreballs._foreach(function(){
+					$.balls.splice($.balls._index(this),1)
 				})
-				num ++
 			}
-
 
 			$.melting = false
 			$.clearBull = Date.now()
